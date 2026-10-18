@@ -53,16 +53,19 @@ app.use(errorHandler);
 /* ------------------------------- Startup ------------------------------- */
 const PORT = process.env.PORT || 5000;
 
-const startServer = async () => {
-  // Fail fast if the database is unreachable
-  await connectDB();
+// Only start the server if this file is run directly (not imported by Vercel)
+if (require.main === module) {
+  const startServer = async () => {
+    // Fail fast if the database is unreachable
+    await connectDB();
 
-  app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-  });
-};
+    app.listen(PORT, () => {
+      console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    });
+  };
 
-startServer();
+  startServer();
+}
 
 // Safety net: log (and in production, exit) on unhandled promise rejections
 process.on('unhandledRejection', (err) => {
