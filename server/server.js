@@ -59,7 +59,7 @@ if (require.main === module) {
     // Fail fast if the database is unreachable
     await connectDB();
 
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
     });
   };
