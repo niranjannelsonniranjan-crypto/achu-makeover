@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | Achu Bridal Studio</title>
+<!-- Keep the admin panel out of search engine results -->
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:#FFF8F5;color:#4a2c2a;font-size:14px}
+
+/* ---------------- Login screen ---------------- */
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#fde8e1 0%,#fff1ec 100%)}
+.auth-box{background:#fff;border:1px solid #f2e2d9;border-radius:16px;padding:36px 30px;width:100%;max-width:400px;box-shadow:0 20px 50px rgba(166,124,82,0.15)}
+.auth-box h1{font-family:'Playfair Display';color:#a67c52;font-size:20px;letter-spacing:1px;text-align:center}
+.auth-box .sub{text-align:center;color:#8a6b5d;font-size:12px;margin:6px 0 22px;text-transform:uppercase;letter-spacing:2px}
+.auth-box label{display:block;font-size:12px;color:#7a5c4a;margin:14px 0 6px}
+.auth-box input{width:100%;padding:11px 14px;border:1px solid #ecd9cf;border-radius:9px;font-family:'Poppins',sans-serif;font-size:14px;color:#4a2c2a}
+.auth-box input:focus{outline:none;border-color:#a67c52;box-shadow:0 0 0 3px rgba(166,124,82,0.12)}
+.auth-box button{margin-top:22px;width:100%;border:0;cursor:pointer;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;background:#a67c52;color:#fff;padding:12px;border-radius:30px}
+.auth-box button:disabled{opacity:.6;cursor:not-allowed}
+
+/* ---------------- Alerts ---------------- */
+.alert{display:none;padding:11px 14px;border-radius:9px;font-size:13px;margin-bottom:6px;line-height:1.5;white-space:pre-wrap}
+.alert.ok{display:block;background:#e8f6ec;color:#1c6b34;border:1px solid #bfe3c9}
+.alert.err{display:block;background:#fdecec;color:#a32b2b;border:1px solid #f2c9c9}
+
+/* ---------------- Dashboard shell ---------------- */
+header{background:#FFFEFB;padding:14px 4%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,0.05);position:sticky;top:0;z-index:10}
+.logo{font-family:'Playfair Display';color:#a67c52;font-size:18px;letter-spacing:2px}
+.logo span{display:block;font-family:'Poppins';font-size:10px;letter-spacing:2px;color:#b9a08c;text-transform:uppercase}
+.who{display:flex;align-items:center;gap:12px;font-size:12px;color:#8a6b5d}
+.btn{border:1px solid #ecd9cf;background:#fff;color:#a67c52;padding:8px 16px;border-radius:20px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600}
+.btn:hover{background:#fdf5f0}
+.btn-solid{background:#a67c52;color:#fff;border-color:#a67c52}
+.btn-solid:hover{background:#96703f;color:#fff}
+
+main{max-width:1180px;margin:0 auto;padding:26px 4% 60px}
+
+/* ---------------- Stats ---------------- */
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px}
+.stat{background:#fff;border:1px solid #f2e2d9;border-radius:14px;padding:16px 22px;min-width:140px;flex:1}
+.stat .n{font-family:'Playfair Display';font-size:28px;color:#a67c52;line-height:1.1}
+.stat .l{font-size:11px;color:#8a6b5d;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+/* ---------------- Tabs ---------------- */
+.tabs{display:flex;gap:8px;border-bottom:1px solid #f2e2d9;margin-bottom:20px}
+.tab{background:none;border:0;border-bottom:2px solid transparent;padding:10px 16px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:14px;color:#8a6b5d;font-weight:600}
+.tab.active{color:#a67c52;border-bottom-color:#a67c52}
+.tab .count{background:#f2e2d9;color:#8a6b5d;border-radius:10px;padding:1px 8px;font-size:11px;margin-left:6px}
+.tab.active .count{background:#a67c52;color:#fff}
+
+/* ---------------- Cards / table ---------------- */
+.panel{background:#fff;border:1px solid #f2e2d9;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(166,124,82,0.06)}
+.panel-head{padding:14px 18px;border-bottom:1px solid #f6ece6;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.panel-head h2{font-family:'Playfair Display';font-size:17px;color:#a67c52;font-weight:600}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid #ecd9cf;background:#fff;border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:'Poppins',sans-serif;color:#8a6b5d}
+.chip.active{background:#a67c52;color:#fff;border-color:#a67c52}
+
+/* the bookings table is wide - always keep it scrollable
+   instead of letting .panel{overflow:hidden} clip it */
+#bookingsBody{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#b9a08c;padding:12px 14px;background:#fffdfc;border-bottom:1px solid #f6ece6;font-weight:600}
+td{padding:14px;border-bottom:1px solid #f8f1ec;vertical-align:top;font-size:13px}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#fffdfc}
+.name{font-weight:600;color:#4a2c2a}
+.muted{color:#a89184;font-size:12px}
+.notes{max-width:230px;white-space:pre-wrap;color:#7a5c4a}
+a.link{color:#a67c52;text-decoration:none}
+a.link:hover{text-decoration:underline}
+
+.badge{display:inline-block;padding:3px 11px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.badge.pending{background:#fdf1e3;color:#a86a1f}
+.badge.confirmed{background:#e8f6ec;color:#1c6b34}
+
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.mini{border:1px solid #ecd9cf;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:'Poppins',sans-serif;color:#8a6b5d;font-weight:600;white-space:nowrap}
+.mini:hover{background:#fdf5f0}
+.mini.danger{color:#a32b2b;border-color:#f2c9c9}
+.mini.danger:hover{background:#fdecec}
+.mini.go{color:#1c6b34;border-color:#bfe3c9}
+.mini.go:hover{background:#e8f6ec}
+.mini:disabled{opacity:.5;cursor:not-allowed}
+
+.empty{padding:46px 20px;text-align:center;color:#b9a08c}
+.msg-list{padding:6px 0}
+.msg{padding:16px 18px;border-bottom:1px solid #f8f1ec}
+.msg:last-child{border-bottom:0}
+.msg-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.msg-body{color:#7a5c4a;white-space:pre-wrap;background:#fffdfc;border:1px solid #f6ece6;border-radius:9px;padding:11px 13px;margin-top:8px}
+.spin{padding:40px;text-align:center;color:#b9a08c}
+/* ---- Tablet / phone ---- */
+@media(max-width:900px){
+  header{padding:12px 4%}
+  main{padding:20px 4% 50px}
+  .panel-head{padding:14px}
+  /* 7 columns never fit a tablet, so drop the Service column
+     and let the rest scroll sideways. */
+  th:nth-child(3),td:nth-child(3){display:none}
+  table{min-width:620px}
+  .notes{max-width:none}
+  th,td{padding:10px 10px}
+  .stat{min-width:calc(50% - 7px)}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div class="auth-wrap" id="loginView">
+  <form class="auth-box" id="loginForm">
+    <h1>ACHU BRIDAL STUDIO</h1>
+    <p class="sub">Admin Panel</p>
+    <div class="alert" id="loginAlert"></div>
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required autocomplete="username" placeholder="admin@achubridal.com">
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="Your password">
+    <button type="submit" id="loginBtn">Sign In</button>
+  </form>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashView" style="display:none">
+  <header>
+    <div class="logo">ACHU BRIDAL STUDIO<span>Admin Panel</span></div>
+    <div class="who">
+      <span id="whoEmail"></span>
+      <button class="btn" id="refreshBtn">Refresh</button>
+      <button class="btn btn-solid" id="logoutBtn">Log Out</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="alert" id="dashAlert"></div>
+
+    <div class="stats">
+      <div class="stat"><div class="n" id="statTotal">0</div><div class="l">Total Bookings</div></div>
+      <div class="stat"><div class="n" id="statPending">0</div><div class="l">Pending</div></div>
+      <div class="stat"><div class="n" id="statConfirmed">0</div><div class="l">Confirmed</div></div>
+      <div class="stat"><div class="n" id="statMessages">0</div><div class="l">Messages</div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" id="tabBookings" data-tab="bookings">Bookings <span class="count" id="cntBookings">0</span></button>
+      <button class="tab" id="tabMessages" data-tab="messages">Messages <span class="count" id="cntMessages">0</span></button>
+    </div>
+
+    <!-- Bookings -->
+    <section id="paneBookings">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Booking Requests</h2>
+          <div class="filters">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="pending">Pending</button>
+            <button class="chip" data-filter="confirmed">Confirmed</button>
+          </div>
+        </div>
+        <div id="bookingsBody"><div class="spin">Loading…</div></div>
+      </div>
+    </section>
+
+    <!-- Messages -->
+    <section id="paneMessages" style="display:none">
+      <div class="panel">
+        <div class="panel-head"><h2>Website Enquiries</h2></div>
+        <div id="messagesBody"><div class="spin">Loading…</div></div>
+      </div>
+    </section>
+
+    <p class="muted" style="margin-top:16px" id="lastSync"></p>
+  </main>
+</div>
+
+<script>
+/* ---- API location ----
+   Same rule as the public site: local when opened on your PC,
+   live once deployed. Update LIVE_API after deploying the backend. */
+const LOCAL_API = "http://localhost:5000/api";
+const LIVE_API = "https://REPLACE-WITH-YOUR-RENDER-URL.onrender.com/api";
+
+const API_BASE =
+  location.protocol === "file:" ||
+  location.hostname === "localhost" ||
+  location.hostname === "127.0.0.1"
+    ? LOCAL_API
+    : LIVE_API;
+
+const TOKEN_KEY = "achu_admin_token";
+
+let token = localStorage.getItem(TOKEN_KEY) || "";
+let bookings = [];
+let messages = [];
+let filter = "all";
+
+/* ---------------- helpers ---------------- */
+
+function escapeHtml(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+  });
+}
+
+function setAlert(id, type, text) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (!text) { el.className = "alert"; el.textContent = ""; return; }
+  el.textContent = text;
+  el.className = "alert " + (type === "ok" ? "ok" : "err");
+}
+
+/* Turn any phone input into a usable wa.me link (adds India's 91 when missing) */
+function waLink(phone) {
+  let digits = String(phone || "").replace(/\D/g, "");
+  if (digits.length === 10) digits = "91" + digits;
+  return digits ? "https://wa.me/" + digits : "";
+}
+
+function telLink(phone) {
+  const digits = String(phone || "").replace(/[^\d+]/g, "");
+  return digits ? "tel:" + digits : "";
+}
+
+function prettyDate(value) {
+  if (!value) return "-";
+  const d = new Date(value);
+  if (isNaN(d)) return "-";
+  return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+function prettyDateTime(value) {
+  if (!value) return "-";
+  const d = new Date(value);
+  if (isNaN(d)) return "-";
+  return d.toLocaleString("en-IN", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+}
+
+/* ---------------- api ---------------- */
+
+async function api(path, options) {
+  options = options || {};
+  const headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
+  if (token) headers.Authorization = "Bearer " + token;
+
+  let res, data = null;
+  try {
+    res = await fetch(API_BASE + path, Object.assign({}, options, { headers: headers }));
+  } catch (err) {
+    throw new Error("Cannot reach the server. Is the backend running?");
+  }
+  try { data = await res.json(); } catch (err) { data = null; }
+
+  // An authenticated call rejected with 401 means the token died - back to login
+  if (res.status === 401) {
+    logout("Your session expired. Please sign in again.");
+    throw new Error("Session expired");
+  }
+  if (!res.ok) {
+    const msg = (data && (data.message || (data.errors && data.errors.map(function (e) { return e.message; }).join(" • ")))) || ("Request failed (" + res.status + ")");
+    throw new Error(msg);
+  }
+  return data;
+}
+
+/* ---------------- session ---------------- */
+
+function showLogin(message) {
+  document.getElementById("dashView").style.display = "none";
+  document.getElementById("loginView").style.display = "flex";
+  document.getElementById("password").value = "";
+  setAlert("loginAlert", "err", message || "");
+}
+
+function showDash() {
+  document.getElementById("loginView").style.display = "none";
+  document.getElementById("dashView").style.display = "block";
+}
+
+function logout(message) {
+  token = "";
+  localStorage.removeItem(TOKEN_KEY);
+  showLogin(message || "");
+}
+
+async function boot() {
+  if (!token) { showLogin(""); return; }
+  try {
+    const me = await api("/admin/me");
+    document.getElementById("whoEmail").textContent = me.data.email;
+    showDash();
+    await loadAll();
+  } catch (err) {
+    // api() already fell back to the login screen on a 401
+    if (token) showLogin(err.message);
+  }
+}
+
+/* ---------------- data ---------------- */
+
+async function loadAll() {
+  await Promise.all([loadBookings(), loadMessages()]);
+  document.getElementById("lastSync").textContent = "Last updated: " + prettyDateTime(new Date());
+}
+
+async function loadBookings() {
+  const body = document.getElementById("bookingsBody");
+  try {
+    const data = await api("/bookings");
+    bookings = data.data || [];
+    renderStats();
+    renderBookings();
+    setAlert("dashAlert", "ok", "");
+  } catch (err) {
+    body.innerHTML = '<div class="empty">Could not load bookings.</div>';
+    setAlert("dashAlert", "err", err.message);
+  }
+}
+
+async function loadMessages() {
+  const body = document.getElementById("messagesBody");
+  try {
+    const data = await api("/contact");
+    messages = data.data || [];
+    renderStats();
+    renderMessages();
+  } catch (err) {
+    body.innerHTML = '<div class="empty">Could not load messages.</div>';
+  }
+}
+
+/* ---------------- rendering ---------------- */
+
+function renderStats() {
+  const pending = bookings.filter(function (b) { return b.status === "pending"; }).length;
+  document.getElementById("statTotal").textContent = bookings.length;
+  document.getElementById("statPending").textContent = pending;
+  document.getElementById("statConfirmed").textContent = bookings.length - pending;
+  document.getElementById("statMessages").textContent = messages.length;
+  document.getElementById("cntBookings").textContent = bookings.length;
+  document.getElementById("cntMessages").textContent = messages.length;
+}
+
+function renderBookings() {
+  const body = document.getElementById("bookingsBody");
+  const list = filter === "all" ? bookings : bookings.filter(function (b) { return b.status === filter; });
+
+  if (!list.length) {
+    body.innerHTML = '<div class="empty">No ' + (filter === "all" ? "" : escapeHtml(filter) + " ") + 'bookings to show.</div>';
+    return;
+  }
+
+  const rows = list.map(function (b) {
+    const status = b.status === "confirmed" ? "confirmed" : "pending";
+    const next = status === "pending" ? "confirmed" : "pending";
+    const wa = waLink(b.phone);
+    const tel = telLink(b.phone);
+
+    return '<tr>' +
+      '<td><div class="name">' + escapeHtml(b.name) + '</div><div class="muted">' + prettyDateTime(b.createdAt) + '</div></td>' +
+      '<td>' +
+        (tel ? '<a class="link" href="' + tel + '">' + escapeHtml(b.phone) + '</a>' : escapeHtml(b.phone)) +
+        '<div class="muted"><a class="link" href="mailto:' + escapeHtml(b.email) + '">' + escapeHtml(b.email) + '</a></div>' +
+      '</td>' +
+      '<td>' + escapeHtml(b.service) + '</td>' +
+      '<td><div class="name">' + prettyDate(b.date) + '</div><div class="muted">' + escapeHtml(b.time) + '</div></td>' +
+      '<td class="notes">' + (b.message ? escapeHtml(b.message) : '<span class="muted">-</span>') + '</td>' +
+      '<td><span class="badge ' + status + '">' + status + '</span></td>' +
+      '<td><div class="actions">' +
+        '<button class="mini ' + (next === "confirmed" ? "go" : "") + '" data-action="status" data-id="' + b._id + '" data-next="' + next + '">' +
+          (next === "confirmed" ? "Confirm" : "Reopen") +
+        '</button>' +
+        (wa ? '<a class="mini" href="' + wa + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
+        '<button class="mini danger" data-action="delete" data-id="' + b._id + '" data-name="' + escapeHtml(b.name) + '">Delete</button>' +
+      '</div></td>' +
+    '</tr>';
+  }).join("");
+
+  body.innerHTML =
+    '<table><thead><tr>' +
+      '<th>Bride</th><th>Contact</th><th>Service</th><th>Date &amp; Time</th><th>Notes</th><th>Status</th><th>Actions</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+function renderMessages() {
+  const body = document.getElementById("messagesBody");
+
+  if (!messages.length) {
+    body.innerHTML = '<div class="empty">No enquiries yet.</div>';
+    return;
+  }
+
+  body.innerHTML = '<div class="msg-list">' + messages.map(function (m) {
+    const tel = telLink(m.phone);
+    const wa = waLink(m.phone);
+    return '<div class="msg">' +
+      '<div class="msg-top">' +
+        '<div><span class="name">' + escapeHtml(m.name) + '</span> ' +
+          '<span class="muted">' + (tel ? '<a class="link" href="' + tel + '">' + escapeHtml(m.phone) + '</a>' : escapeHtml(m.phone)) + '</span>' +
+        '</div>' +
+        '<div class="actions">' +
+          '<span class="muted">' + prettyDateTime(m.createdAt) + '</span>' +
+          (wa ? '<a class="mini" href="' + wa + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
+          '<button class="mini danger" data-action="delete-msg" data-id="' + m._id + '" data-name="' + escapeHtml(m.name) + '">Delete</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="msg-body">' + escapeHtml(m.message) + '</div>' +
+    '</div>';
+  }).join("") + '</div>';
+}
+
+/* ---------------- events ---------------- */
+
+document.getElementById("loginForm").addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const btn = document.getElementById("loginBtn");
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  setAlert("loginAlert", "err", "");
+  btn.disabled = true;
+  btn.textContent = "Signing in…";
+
+  try {
+    const res = await fetch(API_BASE + "/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, password: password }),
+    });
+    const data = await res.json().catch(function () { return null; });
+
+    if (!res.ok) {
+      setAlert("loginAlert", "err", (data && data.message) || "Login failed. Please check your details.");
+      return;
+    }
+
+    token = data.token;
+    localStorage.setItem(TOKEN_KEY, token);
+    document.getElementById("whoEmail").textContent = (data.data && data.data.email) || email;
+    showDash();
+    await loadAll();
+  } catch (err) {
+    setAlert("loginAlert", "err", "Cannot reach the server. Make sure the backend is running on port 5000.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Sign In";
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", function () { logout(""); });
+
+document.getElementById("refreshBtn").addEventListener("click", async function () {
+  setAlert("dashAlert", "ok", "");
+  await loadAll();
+});
+
+document.querySelectorAll(".tab").forEach(function (tab) {
+  tab.addEventListener("click", function () {
+    const name = tab.getAttribute("data-tab");
+    document.querySelectorAll(".tab").forEach(function (t) { t.classList.toggle("active", t === tab); });
+    document.getElementById("paneBookings").style.display = name === "bookings" ? "block" : "none";
+    document.getElementById("paneMessages").style.display = name === "messages" ? "block" : "none";
+  });
+});
+
+document.querySelectorAll(".chip").forEach(function (chip) {
+  chip.addEventListener("click", function () {
+    filter = chip.getAttribute("data-filter");
+    document.querySelectorAll(".chip").forEach(function (c) { c.classList.toggle("active", c === chip); });
+    renderBookings();
+  });
+});
+
+/* One listener for every row button, so re-rendering never loses its handlers */
+document.addEventListener("click", async function (event) {
+  const btn = event.target.closest("[data-action]");
+  if (!btn) return;
+
+  const action = btn.getAttribute("data-action");
+  const id = btn.getAttribute("data-id");
+  const name = btn.getAttribute("data-name") || "this entry";
+
+  btn.disabled = true;
+
+  try {
+    if (action === "status") {
+      const next = btn.getAttribute("data-next");
+      await api("/bookings/" + id, { method: "PUT", body: JSON.stringify({ status: next }) });
+      setAlert("dashAlert", "ok", "Booking for " + name + " is now " + next + ".");
+      await loadBookings();
+      return;
+    }
+
+    if (action === "delete") {
+      if (!confirm("Delete the booking from " + name + "?\n\nThis cannot be undone.")) { btn.disabled = false; return; }
+      await api("/bookings/" + id, { method: "DELETE" });
+      setAlert("dashAlert", "ok", "Booking deleted.");
+      await loadBookings();
+      return;
+    }
+
+    if (action === "delete-msg") {
+      if (!confirm("Delete the message from " + name + "?\n\nThis cannot be undone.")) { btn.disabled = false; return; }
+      await api("/contact/" + id, { method: "DELETE" });
+      setAlert("dashAlert", "ok", "Message deleted.");
+      await loadMessages();
+      return;
+    }
+  } catch (err) {
+    setAlert("dashAlert", "err", err.message);
+    btn.disabled = false;
+  }
+});
+
+boot();
+</script>
+</body>
+</html>

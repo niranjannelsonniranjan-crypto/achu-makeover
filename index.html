@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Achu Bridal Studio - Trichy's premier luxury bridal makeup studio. Specializing in traditional & contemporary bridal looks, HD makeup, hair styling, and pre-bridal skincare.">
+<meta name="keywords" content="bridal makeup Trichy, wedding makeup, HD makeup, bridal studio, Tamil Nadu, South Indian bridal makeup, airbrush makeup">
+<title>Achu Bridal Studio | Trichy's Luxury Bridal Makeup</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:#FFF8F5;color:#4a2c2a;overflow-x:hidden}
+img{max-width:100%;height:auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 8%;background:#FFFEFB;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.logo{font-family:'Playfair Display';color:#a67c52;font-size:22px;letter-spacing:2px;font-weight:600;flex-shrink:0}
+nav{display:flex;align-items:center;gap:15px}
+nav a{margin:0 5px;text-decoration:none;color:#4a2c2a;font-size:14px;white-space:nowrap}
+.btn-gold{background:#a67c52;color:white;padding:10px 25px;border-radius:30px;text-decoration:none;font-size:14px;white-space:nowrap;transition:transform 0.2s,box-shadow 0.2s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(166,124,82,0.3)}
+.btn-gold:active{transform:translateY(0)}
+.hero{display:flex;align-items:center;padding:60px 8%;background:linear-gradient(135deg,#fde8e1 0%,#fff1ec 100%);flex-wrap:wrap;gap:40px}
+.hero-text{flex:1;min-width:300px}
+.hero-text h1{font-family:'Playfair Display';font-size:48px;color:#5a2d2d;line-height:1.1}
+.hero-text h1 span{color:#c48b8b;font-style:italic;font-size:32px;display:block;font-weight:400}
+.hero-text p{margin:20px 0;color:#666;font-size:15px;max-width:450px}
+.hero-text .hero-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.hero-img{flex:1;min-width:300px;text-align:center}
+.hero-img img{width:100%;max-width:500px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.15)}
+.services{padding:60px 8%;text-align:center;background:white}
+.services h2{font-family:'Playfair Display';color:#a67c52;font-size:32px}
+.service-cat{margin-top:40px;text-align:left}
+.service-cat h3{font-family:'Playfair Display';color:#a67c52;font-size:24px;border-bottom:2px solid #fde8e1;padding-bottom:10px;margin-bottom:20px}
+.service-cat-banner{width:100%;height:300px;object-fit:cover;border-radius:15px;margin-bottom:20px;box-shadow:0 8px 25px rgba(166,124,82,0.18);background-color:#f9efe8}
+.cards{display:flex;gap:20px;margin-top:30px;flex-wrap:wrap;justify-content:center}
+.card{background:#fde8e1;padding:30px 20px;border-radius:15px;width:300px;flex:1 1 300px;max-width:100%;transition:transform 0.3s,box-shadow 0.3s}
+.card:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(166,124,82,0.2)}
+.card h3{color:#a67c52;margin:15px 0 10px;font-size:18px}
+.card p{font-size:14px;line-height:1.6}
+.gallery{padding:60px 8%;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;margin-top:30px}
+.grid img{width:100%;height:250px;object-fit:cover;border-radius:12px}
+.cta{background:#f9efe8;padding:60px 8%;text-align:center}
+footer{background:#3d2a26;color:#e8d5c4;padding:40px 8%;display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px}
+footer h4{color:#d4a574;margin-bottom:10px}
+footer p{font-size:14px;line-height:1.8}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px 20px;border-radius:50px;text-decoration:none;font-weight:600;box-shadow:0 5px 15px rgba(0,0,0,0.2);z-index:1000}
+
+/* ---- Mobile menu toggle ---- */
+.menu-toggle{display:none;flex-direction:column;cursor:pointer;padding:5px;background:none;border:none}
+.menu-toggle span{width:25px;height:3px;background:#a67c52;margin:3px 0;transition:0.3s;border-radius:2px}
+
+/* ---- Booking & contact forms (backend connected) ---- */
+.booking{padding:60px 8%;background:#fff8f5;text-align:center}
+.booking.contact-sec{background:#fff}
+.booking h2{font-family:'Playfair Display';color:#a67c52;font-size:32px}
+.booking>p{color:#8a6b5d;margin-top:8px}
+.booking-wrap{display:flex;justify-content:center;flex-wrap:wrap;margin-top:35px;text-align:left}
+.form-box{background:#fff;border:1px solid #f2e2d9;padding:30px;border-radius:16px;width:100%;max-width:520px;box-shadow:0 12px 30px rgba(166,124,82,0.08)}
+.contact-sec .form-box{background:#fffdfc}
+.form-box h3{font-family:'Playfair Display';color:#a67c52;margin-bottom:6px;font-size:22px}
+.form-box label{display:block;font-size:13px;color:#7a5c4a;margin:14px 0 6px}
+.form-box input,.form-box select,.form-box textarea{width:100%;padding:11px 14px;border:1px solid #ecd9cf;border-radius:9px;font-family:'Poppins',sans-serif;font-size:14px;color:#4a2c2a;background:#fff}
+.form-box input:focus,.form-box select:focus,.form-box textarea:focus{outline:none;border-color:#a67c52;box-shadow:0 0 0 3px rgba(166,124,82,0.12)}
+.form-box textarea{resize:vertical}
+.form-box button{margin-top:20px;width:100%;border:0;cursor:pointer;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600}
+.form-box button:disabled{opacity:.6;cursor:not-allowed}
+.row{display:flex;gap:15px}
+.row>div{flex:1}
+.alert{display:none;margin-bottom:10px;padding:11px 14px;border-radius:9px;font-size:13px;line-height:1.5}
+.alert:not(:empty){display:block}
+.alert.ok{background:#e8f6ee;color:#1e7a45;border:1px solid #bfe6d0}
+.alert.err{background:#fdecec;color:#b3261e;border:1px solid #f6cdcd}
+.form-note{margin-top:14px;font-size:12px;color:#8a6b5d;text-align:center}
+.form-note a{color:#a67c52}
+.card .price{margin-top:10px;font-weight:600;color:#a67c52}
+
+/* ---- Large Desktop (1400px+) ---- */
+@media(min-width:1400px){
+  .hero-text h1{font-size:56px}
+  .hero-text h1 span{font-size:38px}
+  .services h2,.gallery h2,.booking h2,.cta h2{font-size:38px}
+  .service-cat h3{font-size:28px}
+}
+
+/* ---- Desktop (1200px - 1399px) ---- */
+@media(max-width:1200px){
+  .hero-text h1{font-size:42px}
+  .hero-text h1 span{font-size:30px}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+}
+
+/* ---- Tablet (768px - 1024px) ---- */
+@media(max-width:1024px){
+  header{flex-wrap:wrap;justify-content:space-between;padding:12px 5%;gap:10px}
+  nav{display:flex;flex-wrap:wrap;gap:8px}
+  nav a{margin:0 5px;font-size:13px}
+  .btn-gold{padding:8px 20px;font-size:13px}
+  .hero{padding:50px 6%;gap:30px}
+  .hero-text h1{font-size:38px}
+  .hero-text h1 span{font-size:28px}
+  .hero-text p{font-size:14px}
+  .hero-img img{max-width:400px}
+  .services,.gallery,.booking,.cta{padding:50px 6%}
+  .services h2,.gallery h2,.booking h2,.cta h2{font-size:28px}
+  .service-cat-banner{height:250px}
+  .card{width:280px;flex:1 1 280px}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+  .grid img{height:220px}
+  .form-box{padding:25px}
+  footer{padding:30px 6%}
+}
+
+/* ---- Large Phone/Tablet (600px - 767px) ---- */
+@media(max-width:767px){
+  header{padding:15px 5%}
+  .logo{font-size:18px}
+  .menu-toggle{display:flex}
+  nav{display:none;position:absolute;top:100%;left:0;right:0;background:#FFFEFB;flex-direction:column;padding:20px 5%;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+  nav.active{display:flex}
+  nav a{margin:10px 0;font-size:16px;padding:10px 0;border-bottom:1px solid #fde8e1}
+  nav a:last-child{border-bottom:none}
+  .btn-gold{width:100%;text-align:center;margin-top:10px}
+  .hero{padding:40px 5%;text-align:center;gap:30px}
+  .hero-text,.hero-img{min-width:100%;flex:1 1 100%}
+  .hero-text h1{font-size:32px}
+  .hero-text h1 span{font-size:24px}
+  .hero-text p{max-width:none;font-size:14px}
+  .hero-text .hero-buttons{justify-content:center}
+  .hero-img{margin-top:20px}
+  .hero-img img{max-width:350px}
+  .services,.gallery,.booking,.cta{padding:40px 5%}
+  .services h2,.gallery h2,.booking h2,.cta h2{font-size:26px}
+  .service-cat{margin-top:30px}
+  .service-cat h3{font-size:20px}
+  .service-cat-banner{height:200px}
+  .card{width:100%;max-width:400px;padding:25px 20px}
+  .card h3{font-size:16px}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .grid img{height:180px}
+  .form-box{padding:20px 15px}
+  .form-box h3{font-size:18px}
+  .form-box label{font-size:12px}
+  .form-box input,.form-box select,.form-box textarea{font-size:13px;padding:10px 12px}
+  .row{flex-direction:column;gap:10px}
+  .row>div{flex:1 1 100%}
+  footer{padding:25px 5%;gap:20px}
+  footer>div{flex:1 1 100%;text-align:center}
+  .whatsapp{bottom:15px;right:15px;padding:12px 16px;font-size:12px}
+}
+
+/* ---- Small Phone (480px - 599px) ---- */
+@media(max-width:599px){
+  .logo{font-size:16px;letter-spacing:1px}
+  .hero{padding:30px 4%}
+  .hero-text h1{font-size:28px}
+  .hero-text h1 span{font-size:20px}
+  .hero-text p{font-size:13px}
+  .hero-img img{max-width:300px}
+  .services,.gallery,.booking,.cta{padding:30px 4%}
+  .services h2,.gallery h2,.booking h2,.cta h2{font-size:22px}
+  .service-cat h3{font-size:18px}
+  .service-cat-banner{height:180px}
+  .card{padding:20px 15px}
+  .card h3{font-size:15px}
+  .card p{font-size:13px}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+  .grid img{height:150px}
+  .form-box{padding:18px 12px}
+  .form-box h3{font-size:16px}
+  .cta a{display:block;margin:10px 0}
+}
+
+/* ---- Extra Small Phone (< 360px) ---- */
+@media(max-width:359px){
+  .logo{font-size:14px}
+  .hero-text h1{font-size:24px}
+  .hero-text h1 span{font-size:18px}
+  .services h2,.gallery h2,.booking h2,.cta h2{font-size:20px}
+  .whatsapp{padding:10px 14px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ACHU BRIDAL STUDIO</div>
+  <button class="menu-toggle" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#booking">Booking</a>
+    <a href="#contact">Contact</a>
+    <a href="#booking" class="btn-gold">BOOK NOW</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-text">
+    <h1>Achu Bridal Studio <span>Where Every Bride Becomes a Queen</span></h1>
+    <p>Trichy's premier luxury bridal makeup studio — specializing in traditional & contemporary bridal looks, designed to make you feel radiant and regal.</p>
+    <div class="hero-buttons">
+      <a href="#booking" class="btn-gold">Book Your Bridal Consultation</a>
+      <a href="#services" style="text-decoration:none;border:1px solid #a67c52;padding:10px 25px;border-radius:30px;color:#a67c52;white-space:nowrap">Our Services</a>
+    </div>
+    <p style="margin-top:20px;font-size:12px">📍 Trichy, Tamil Nadu | ⭐ 500+ Happy Brides | 📅 Bookings Open 2026-2027</p>
+  </div>
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600" alt="Achu Bridal Bride">
+  </div>
+</section>
+
+<section class="services" id="services">
+  <h2>Our Luxury Bridal Services</h2>
+  <p style="margin-top:8px;color:#666">Tailored to make you glow on your wedding day</p>
+  <div id="serviceSections">
+    <div class="cards" id="serviceCards">
+      <div class="card"><h3>Bridal Makeup</h3><p>HD, Airbrush & Traditional makeup for wedding, reception & engagement.</p></div>
+      <div class="card"><h3>Hair Styling & Draping</h3><p>Expert hairstyling, saree draping in South Indian & North Indian styles.</p></div>
+      <div class="card"><h3>Pre-Bridal Skincare</h3><p>Custom skincare & wellness rituals for glowing skin before the big day.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <h2>Gallery</h2>
+  <p>Moments of Love, Beauty & Elegance</p>
+  <div class="grid">
+    <img src="https://images.unsplash.com/photo-1515688594390-b649af70d282?w=600" alt="Bridal makeup" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600" alt="Elegant bride" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1609351431616-d53b4c2ff7f5?w=600" alt="Bridal beauty" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600" alt="Wedding day" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== Booking form -> POST /api/bookings ===== -->
+<section class="booking" id="booking">
+  <h2>Book Your Appointment</h2>
+  <p>Fill in your details and we'll confirm your slot within 24 hours</p>
+  <div class="booking-wrap">
+    <form class="form-box" id="bookingForm">
+      <h3>Bridal Booking Request</h3>
+      <div class="alert" id="bookingAlert"></div>
+
+      <label for="bName">Full Name *</label>
+      <input id="bName" name="name" type="text" maxlength="80" required placeholder="e.g. Anitha R">
+
+      <label for="bPhone">Phone Number *</label>
+      <input id="bPhone" name="phone" type="tel" required pattern="[0-9+\-\s()]{7,15}" placeholder="7806986448">
+
+      <label for="bEmail">Email *</label>
+      <input id="bEmail" name="email" type="email" required placeholder="you@example.com">
+
+      <label for="bService">Service *</label>
+      <select id="bService" name="service" required>
+        <option value="">Select a service…</option>
+        <option value="Bridal">Bridal Makeup</option>
+        <option value="Party">Party Makeup</option>
+        <option value="HD Makeup">HD Makeup</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <label for="bDate">Date *</label>
+          <input id="bDate" name="date" type="date" required>
+        </div>
+        <div>
+          <label for="bTime">Time *</label>
+          <input id="bTime" name="time" type="time" required>
+        </div>
+      </div>
+
+      <label for="bMsg">Message (optional)</label>
+      <textarea id="bMsg" name="message" rows="3" maxlength="500" placeholder="Venue, number of people, special requests…"></textarea>
+
+      <button type="submit" class="btn-gold">Request Booking</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===== Contact form -> POST /api/contact ===== -->
+<section class="booking contact-sec" id="contact">
+  <h2>Still Have Questions?</h2>
+  <p>Send us a message and we'll get back to you shortly</p>
+  <div class="booking-wrap">
+    <form class="form-box" id="contactForm">
+      <h3>Quick Enquiry</h3>
+      <div class="alert" id="contactAlert"></div>
+
+      <label for="cName">Full Name *</label>
+      <input id="cName" name="name" type="text" maxlength="80" required placeholder="Your name">
+
+      <label for="cPhone">Phone Number *</label>
+      <input id="cPhone" name="phone" type="tel" required pattern="[0-9+\-\s()]{7,15}" placeholder="7806986448">
+
+      <label for="cMsg">Message *</label>
+      <textarea id="cMsg" name="message" rows="4" maxlength="1000" required placeholder="Ask about dates, pricing or availability…"></textarea>
+
+      <button type="submit" class="btn-gold">Send Message</button>
+      <p class="form-note">Prefer WhatsApp? <a href="https://wa.me/917806986448">Chat with us</a></p>
+    </form>
+  </div>
+</section>
+
+<section class="cta">
+  <h2 style="font-family:'Playfair Display';color:#a67c52;margin-bottom:15px">Ready to Look Like Royalty on Your Big Day?</h2>
+  <p style="margin-bottom:20px">Book now and let's create your perfect bridal look together at our Trichy studio.</p>
+  <a href="#booking" class="btn-gold">BOOK NOW - LIMITED SLOTS</a>
+</section>
+
+<footer>
+  <div style="flex:1;min-width:200px"><h4>ACHU BRIDAL STUDIO</h4><p>Luxury Bridal Makeup Studio in Trichy.</p></div>
+  <div style="flex:1;min-width:200px"><h4>Contact</h4><p>📍 Thillai Nagar, Trichy<br>📞 +91 78069 86448<br>✉️ contact@achubridalstudio.com</p></div>
+  <div style="flex:1;min-width:200px"><h4>Follow Us</h4><p>Instagram • Facebook • Pinterest</p></div>
+</footer>
+
+<a href="https://wa.me/917806986448?text=Hi%20Achu%20Bridal%20Studio,%20I%20want%20to%20book%20bridal%20makeup" class="whatsapp">WhatsApp 💬</a>
+
+<!-- =========================================================
+     Frontend <-> Backend connection
+     Talks to the Express API in the /server folder.
+     Endpoints used:
+       POST /api/bookings   (booking form)
+       POST /api/contact    (enquiry form)
+       GET  /api/services   (service cards)
+     ========================================================= -->
+<script>
+/* ---- API location ----
+   LOCAL_API : your own backend, used when you open this file directly
+               or serve it while developing on your PC.
+   LIVE_API  : the deployed backend. Replace the placeholder below with your
+               Render URL once deployed (shown at the top of the Render page). */
+const LOCAL_API = "http://localhost:5000/api";
+const LIVE_API = "https://REPLACE-WITH-YOUR-RENDER-URL.onrender.com/api";
+
+const API_BASE =
+  location.protocol === "file:" ||
+  location.hostname === "localhost" ||
+  location.hostname === "127.0.0.1"
+    ? LOCAL_API
+    : LIVE_API;
+
+/* Escape any text coming from the database before putting it in the page */
+function escapeHtml(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+  });
+}
+
+/* Show a status message inside a form's alert box */
+function setAlert(id, type, text) {
+  const box = document.getElementById(id);
+  box.className = type ? "alert " + type : "alert";
+  box.textContent = text || "";
+}
+
+/* Read a field by its name attribute.
+   (Avoids the form.name trap, which returns the form's own name) */
+function fieldValue(form, name) {
+  const el = form.querySelector('[name="' + name + '"]');
+  return el ? el.value.trim() : "";
+}
+
+/* Turn a failed API response into a readable message */
+function errorText(res, data) {
+  if (data && Array.isArray(data.errors) && data.errors.length) {
+    return data.errors.map(function (e) { return e.message; }).join(" • ");
+  }
+  if (data && data.message) return data.message;
+  return "Request failed (HTTP " + res.status + ")";
+}
+
+/* ---------- 1. Booking form -> POST /api/bookings ---------- */
+const bookingForm = document.getElementById("bookingForm");
+
+bookingForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const btn = bookingForm.querySelector('button[type="submit"]');
+
+  setAlert("bookingAlert", "", "Sending your request…");
+  btn.disabled = true;
+
+  const payload = {
+    name: fieldValue(bookingForm, "name"),
+    phone: fieldValue(bookingForm, "phone"),
+    email: fieldValue(bookingForm, "email"),
+    service: fieldValue(bookingForm, "service"),
+    date: fieldValue(bookingForm, "date"),
+    time: fieldValue(bookingForm, "time"),
+    message: fieldValue(bookingForm, "message"),
+  };
+
+  try {
+    const res = await fetch(API_BASE + "/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      setAlert("bookingAlert", "ok", data.message || "Booking request sent!");
+      bookingForm.reset();
+    } else {
+      setAlert("bookingAlert", "err", errorText(res, data));
+    }
+  } catch (err) {
+    setAlert("bookingAlert", "err",
+      "Cannot reach the server. Make sure the backend is running on port 5000.");
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+/* ---------- 2. Contact form -> POST /api/contact ---------- */
+const contactForm = document.getElementById("contactForm");
+
+contactForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const btn = contactForm.querySelector('button[type="submit"]');
+
+  setAlert("contactAlert", "", "Sending your message…");
+  btn.disabled = true;
+
+  const payload = {
+    name: fieldValue(contactForm, "name"),
+    phone: fieldValue(contactForm, "phone"),
+    message: fieldValue(contactForm, "message"),
+  };
+
+  try {
+    const res = await fetch(API_BASE + "/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      setAlert("contactAlert", "ok", data.message || "Message sent!");
+      contactForm.reset();
+    } else {
+      setAlert("contactAlert", "err", errorText(res, data));
+    }
+  } catch (err) {
+    setAlert("contactAlert", "err",
+      "Cannot reach the server. Make sure the backend is running on port 5000.");
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+/* ---------- 3. Service cards & Dropdown <- GET /api/services ---------- */
+(async function loadServices() {
+  const container = document.getElementById("serviceSections");
+  const select = document.getElementById("bService");
+  if (!container && !select) return;
+
+  try {
+    const res = await fetch(API_BASE + "/services?activeOnly=true");
+    const data = await res.json();
+
+    // API unreachable, or no services saved yet -> keep defaults
+    if (!res.ok || !data.data || !data.data.length) return;
+
+    // High-quality category images (Luxury Makeup Aesthetic)
+    const categoryImages = {
+      "Threading": "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=1200&q=80", // Makeup brushes
+      "Waxing": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200&q=80", // Radiant bridal face
+      "Facial": "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1200&q=80", // Luxury beauty products
+       "Hair Services": "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1200&q=80", // Elegant bridal hair
+       "Piercing": "https://images.unsplash.com/photo-1589128504748-510d94511850?w=1200&q=80", // Elegant bridal jewelry
+       "Mehandi": "https://images.unsplash.com/photo-1590548784585-643d2b9f2924?w=1200&q=80", // Intricate Henna (Keep)
+      "Makeup": "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1200&q=80", // Luxury bridal makeup
+      "Hair CARE": "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=1200&q=80", // Silky hair aesthetic
+      "Manicure & Pedicure": "https://images.unsplash.com/photo-1610992015732-2449b0c26670?w=1200&q=80" // Luxury Nails (Keep)
+    };
+
+    // Group by category
+    const grouped = data.data.reduce(function(acc, s) {
+      const cat = s.category || 'General';
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(s);
+      return acc;
+    }, {});
+
+    // Update Service Sections (Cards)
+    if (container) {
+      let html = "";
+      for (const cat in grouped) {
+        const catImg = categoryImages[cat] || "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=800";
+        html += '<div class="service-cat">' +
+                  '<h3>' + escapeHtml(cat) + '</h3>' +
+                  '<img src="' + catImg + '" class="service-cat-banner" alt="' + escapeHtml(cat) + '">' +
+                  '<div class="cards">' +
+                    grouped[cat].map(function (service) {
+                      return (
+                        '<div class="card">' +
+                          "<h3>" + escapeHtml(service.title) + "</h3>" +
+                          "<p>" + escapeHtml(service.description) + "</p>" +
+                          '<p class="price">₹' + Number(service.price).toLocaleString("en-IN") + "</p>" +
+                        "</div>"
+                      );
+                    }).join("") +
+                  '</div>' +
+                '</div>';
+      }
+      container.innerHTML = html;
+    }
+
+    // Update Booking Dropdown (Categories)
+    if (select) {
+      let selectHtml = '<option value="">Select a service…</option>';
+      for (const cat in grouped) {
+        selectHtml += '<optgroup label="' + escapeHtml(cat) + '">';
+        selectHtml += grouped[cat].map(function(s) {
+          return '<option value="' + escapeHtml(s.title) + '">' + 
+                   escapeHtml(s.title) + ' (₹' + s.price + ')' + 
+                 '</option>';
+        }).join("");
+        selectHtml += '</optgroup>';
+      }
+      select.innerHTML = selectHtml;
+    }
+  } catch (err) {
+    /* Backend offline: defaults stay */
+  }
+})();
+
+/* ---------- 4. Mobile menu toggle ---------- */
+(function initMobileMenu() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('nav');
+  const navLinks = document.querySelectorAll('nav a');
+
+  if (menuToggle && nav) {
+    menuToggle.addEventListener('click', function() {
+      nav.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        nav.classList.remove('active');
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+        nav.classList.remove('active');
+      }
+    });
+  }
+})();
+
+/* ---------- 5. Stop people booking a past date ---------- */
+(function setMinimumDate() {
+  const dateInput = document.getElementById("bDate");
+  if (dateInput) dateInput.min = new Date().toISOString().split("T")[0];
+})();
+</script>
+
+</body>
+</html>

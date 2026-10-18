@@ -1,0 +1,16 @@
+# Exclude local development files
+.tools/
+node_modules/
+*.zip
+.env
+.env.local
+.env.*.local
+logs/
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+dist/
+build/
