@@ -145,7 +145,7 @@ Booking body:
 ```json
 {
   "name": "Anitha R",
-  "phone": "9876543210",
+  "phone": "7806986448",
   "email": "anitha@example.com",
   "service": "Bridal",
   "date": "2026-11-20",
@@ -257,7 +257,7 @@ For every admin request:
 ```json
 {
   "name": "Anitha R",
-  "phone": "9876543210",
+  "phone": "7806986448",
   "email": "anitha@example.com",
   "service": "Bridal",
   "date": "2026-11-20",

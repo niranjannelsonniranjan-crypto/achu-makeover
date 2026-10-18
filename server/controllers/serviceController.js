@@ -44,9 +44,9 @@ const getServiceById = asyncHandler(async (req, res) => {
  * @access  Private (admin)
  */
 const createService = asyncHandler(async (req, res) => {
-  const { title, price, description, imageUrl, isActive } = req.body;
+  const { title, price, description, category, imageUrl, isActive } = req.body;
 
-  const service = await Service.create({ title, price, description, imageUrl, isActive });
+  const service = await Service.create({ title, price, description, category, imageUrl, isActive });
 
   res.status(201).json({
     success: true,
@@ -68,7 +68,7 @@ const updateService = asyncHandler(async (req, res) => {
     throw new Error('Service not found');
   }
 
-  const allowed = ['title', 'price', 'description', 'imageUrl', 'isActive'];
+  const allowed = ['title', 'price', 'description', 'category', 'imageUrl', 'isActive'];
   allowed.forEach((field) => {
     if (req.body[field] !== undefined) service[field] = req.body[field];
   });

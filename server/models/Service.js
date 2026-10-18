@@ -22,6 +22,12 @@ const serviceSchema = new mongoose.Schema(
       trim: true,
       maxlength: [1000, 'Description cannot exceed 1000 characters'],
     },
+    category: {
+      type: String,
+      required: [true, 'Category is required'],
+      trim: true,
+      default: 'General',
+    },
     imageUrl: {
       type: String,
       trim: true,

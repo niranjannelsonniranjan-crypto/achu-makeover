@@ -13,7 +13,7 @@ const {
 } = require('../controllers/bookingController');
 const { protect } = require('../middleware/authMiddleware');
 const validate = require('../middleware/validate');
-const { BOOKING_SERVICES, BOOKING_STATUSES } = require('../models/Booking');
+const { BOOKING_STATUSES } = require('../models/Booking');
 
 const router = express.Router();
 
@@ -30,9 +30,7 @@ const createRules = [
     .matches(/^[0-9+\-\s()]{7,15}$/)
     .withMessage('Please provide a valid phone number'),
   body('email').trim().isEmail().withMessage('Please provide a valid email').normalizeEmail(),
-  body('service')
-    .isIn(BOOKING_SERVICES)
-    .withMessage(`Service must be one of: ${BOOKING_SERVICES.join(', ')}`),
+  body('service').trim().notEmpty().withMessage('Service is required'),
   body('date').isISO8601().withMessage('Date must be a valid date (YYYY-MM-DD)'),
   body('time').trim().notEmpty().withMessage('Time is required'),
   body('message').optional().trim().isLength({ max: 500 }).withMessage('Message is too long'),
@@ -54,7 +52,7 @@ router.put(
       .isIn(BOOKING_STATUSES)
       .withMessage(`Status must be one of: ${BOOKING_STATUSES.join(', ')}`),
     body('email').optional().trim().isEmail().withMessage('Please provide a valid email'),
-    body('service').optional().isIn(BOOKING_SERVICES).withMessage('Invalid service'),
+    body('service').optional().trim().notEmpty().withMessage('Service is required'),
   ],
   validate,
   updateBooking
