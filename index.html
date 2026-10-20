@@ -238,14 +238,14 @@ footer p{font-size:14px;line-height:1.8}
   </div>
 </section>
 
-<!-- ===== Booking form -> Formspree ===== -->
+<!-- ===== Booking form -> Local Backend ===== -->
 <section class="booking" id="booking">
   <h2>Book Your Appointment</h2>
   <p>Fill in your details and we'll confirm your slot within 24 hours</p>
   <div class="booking-wrap">
-    <form class="form-box" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+    <form class="form-box" id="bookingForm">
       <h3>Bridal Booking Request</h3>
-      <input type="hidden" name="_subject" value="New Booking Request from Achu Bridal Studio">
+      <div class="alert" id="bookingAlert"></div>
 
       <label for="bName">Full Name *</label>
       <input id="bName" name="name" type="text" maxlength="80" required placeholder="e.g. Anitha R">
@@ -283,14 +283,14 @@ footer p{font-size:14px;line-height:1.8}
   </div>
 </section>
 
-<!-- ===== Contact form -> Formspree ===== -->
+<!-- ===== Contact form -> Local Backend ===== -->
 <section class="booking contact-sec" id="contact">
   <h2>Still Have Questions?</h2>
   <p>Send us a message and we'll get back to you shortly</p>
   <div class="booking-wrap">
-    <form class="form-box" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+    <form class="form-box" id="contactForm">
       <h3>Quick Enquiry</h3>
-      <input type="hidden" name="_subject" value="New Enquiry from Achu Bridal Studio">
+      <div class="alert" id="contactAlert"></div>
 
       <label for="cName">Full Name *</label>
       <input id="cName" name="name" type="text" maxlength="80" required placeholder="Your name">
@@ -330,7 +330,114 @@ footer p{font-size:14px;line-height:1.8}
        GET  /api/services   (service cards)
      ========================================================= -->
 <script>
-/* ---------- Forms now use Formspree - No JavaScript needed ---------- */
+/* ---------- Form handling with local backend ---------- */
+const LOCAL_API = "http://localhost:5000/api";
+
+/* Show a status message inside a form's alert box */
+function setAlert(id, type, text) {
+  const box = document.getElementById(id);
+  box.className = type ? "alert " + type : "alert";
+  box.textContent = text || "";
+}
+
+/* Read a field by its name attribute */
+function fieldValue(form, name) {
+  const el = form.querySelector('[name="' + name + '"]');
+  return el ? el.value.trim() : "";
+}
+
+/* Turn a failed API response into a readable message */
+function errorText(res, data) {
+  if (data && Array.isArray(data.errors) && data.errors.length) {
+    return data.errors.map(function (e) { return e.message; }).join(" • ");
+  }
+  if (data && data.message) return data.message;
+  return "Request failed (HTTP " + res.status + ")";
+}
+
+/* ---------- Booking form -> POST /api/bookings ---------- */
+const bookingForm = document.getElementById("bookingForm");
+
+if (bookingForm) {
+  bookingForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const btn = bookingForm.querySelector('button[type="submit"]');
+
+    setAlert("bookingAlert", "", "Sending your request…");
+    btn.disabled = true;
+
+    const payload = {
+      name: fieldValue(bookingForm, "name"),
+      phone: fieldValue(bookingForm, "phone"),
+      email: fieldValue(bookingForm, "email"),
+      service: fieldValue(bookingForm, "service"),
+      date: fieldValue(bookingForm, "date"),
+      time: fieldValue(bookingForm, "time"),
+      message: fieldValue(bookingForm, "message"),
+    };
+
+    try {
+      const res = await fetch(LOCAL_API + "/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        setAlert("bookingAlert", "ok", data.message || "Booking request sent!");
+        bookingForm.reset();
+      } else {
+        setAlert("bookingAlert", "err", errorText(res, data));
+      }
+    } catch (err) {
+      setAlert("bookingAlert", "err",
+        "Cannot reach the server. Make sure the backend is running on port 5000.");
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}
+
+/* ---------- Contact form -> POST /api/contact ---------- */
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const btn = contactForm.querySelector('button[type="submit"]');
+
+    setAlert("contactAlert", "", "Sending your message…");
+    btn.disabled = true;
+
+    const payload = {
+      name: fieldValue(contactForm, "name"),
+      phone: fieldValue(contactForm, "phone"),
+      message: fieldValue(contactForm, "message"),
+    };
+
+    try {
+      const res = await fetch(LOCAL_API + "/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        setAlert("contactAlert", "ok", data.message || "Message sent!");
+        contactForm.reset();
+      } else {
+        setAlert("contactAlert", "err", errorText(res, data));
+      }
+    } catch (err) {
+      setAlert("contactAlert", "err",
+        "Cannot reach the server. Make sure the backend is running on port 5000.");
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}
 
 /* Escape any text coming from the database before putting it in the page */
 function escapeHtml(value) {
@@ -339,12 +446,29 @@ function escapeHtml(value) {
   });
 }
 
-/* ---------- 3. Service cards & Dropdown - Fixed Services ---------- */
-// Services are hardcoded to avoid backend dependency
+/* ---------- 3. Service cards - All Services Display ---------- */
+// Comprehensive list of all services offered
 const services = [
-  { title: 'Bridal Makeup', description: 'HD, Airbrush & Traditional makeup for wedding, reception & engagement.' },
-  { title: 'Party Makeup', description: 'Glamorous makeup for parties and special occasions.' },
-  { title: 'HD Makeup', description: 'High-definition makeup for photoshoots and events.' }
+  { title: 'Bridal Makeup', description: 'Complete bridal makeup for wedding, reception, engagement with HD, Airbrush & Traditional techniques.' },
+  { title: 'Party Makeup', description: 'Glamorous makeup for parties, sangeet, mehendi and special occasions.' },
+  { title: 'HD Makeup', description: 'High-definition makeup for photoshoots, portfolio and events.' },
+  { title: 'Airbrush Makeup', description: 'Flawless, long-lasting airbrush makeup for perfect coverage.' },
+  { title: 'Hair Styling', description: 'Professional hair styling for weddings, parties and events.' },
+  { title: 'Saree Draping', description: 'Expert saree draping in South Indian, North Indian and modern styles.' },
+  { title: 'Bridal Hair', description: 'Complete bridal hair styling including bun, braids and modern looks.' },
+  { title: 'Groom Makeup', description: 'Groom makeup and grooming for wedding ceremonies.' },
+  { title: 'Pre-Bridal Skincare', description: 'Custom skincare packages for glowing skin before the wedding.' },
+  { title: 'Facial Treatments', description: 'Rejuvenating facials for radiant and healthy skin.' },
+  { title: 'Threading', description: 'Precision threading for clean and sharp eyebrows.' },
+  { title: 'Waxing', description: 'Full body waxing services for smooth skin.' },
+  { title: 'Manicure & Pedicure', description: 'Luxury hand and foot care treatments.' },
+  { title: 'Mehandi', description: 'Traditional and modern mehandi designs for brides.' },
+  { title: 'Engagement Makeup', description: 'Specialized makeup for engagement ceremonies.' },
+  { title: 'Reception Makeup', description: 'Glamorous makeup for wedding reception.' },
+  { title: 'Bridal Packages', description: 'Complete bridal packages including makeup, hair and draping.' },
+  { title: 'Party Packages', description: 'Party-ready makeup and styling packages.' },
+  { title: 'Family Makeup', description: 'Makeup services for family members at weddings.' },
+  { title: 'Trial Makeup', description: 'Pre-wedding makeup trial to find your perfect look.' }
 ];
 
 // Update service cards (if container exists)
