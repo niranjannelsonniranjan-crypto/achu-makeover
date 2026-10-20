@@ -336,7 +336,7 @@ footer p{font-size:14px;line-height:1.8}
    LIVE_API  : the deployed backend. Replace the placeholder below with your
                Render URL once deployed (shown at the top of the Render page). */
 const LOCAL_API = "http://localhost:5000/api";
-const LIVE_API = "https://achu-makeover-api.onrender.com/api";
+const LIVE_API = "http://localhost:5000/api";
 
 const API_BASE =
   location.protocol === "file:" ||
@@ -455,81 +455,25 @@ contactForm.addEventListener("submit", async function (event) {
   }
 });
 
-/* ---------- 3. Service cards & Dropdown <- GET /api/services ---------- */
-(async function loadServices() {
+/* ---------- 3. Service cards & Dropdown - Fixed Services ---------- */
+// Services are hardcoded to avoid backend dependency
+const services = [
+  { title: 'Bridal Makeup', description: 'HD, Airbrush & Traditional makeup for wedding, reception & engagement.' },
+  { title: 'Party Makeup', description: 'Glamorous makeup for parties and special occasions.' },
+  { title: 'HD Makeup', description: 'High-definition makeup for photoshoots and events.' }
+];
+
+// Update service cards (if container exists)
+(function loadFixedServices() {
   const container = document.getElementById("serviceSections");
-  const select = document.getElementById("bService");
-  if (!container && !select) return;
+  if (!container) return;
 
-  try {
-    const res = await fetch(API_BASE + "/services?activeOnly=true");
-    const data = await res.json();
-
-    // API unreachable, or no services saved yet -> keep defaults
-    if (!res.ok || !data.data || !data.data.length) return;
-
-    // High-quality category images (Luxury Makeup Aesthetic)
-    const categoryImages = {
-      "Threading": "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=1200&q=80", // Makeup brushes
-      "Waxing": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200&q=80", // Radiant bridal face
-      "Facial": "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1200&q=80", // Luxury beauty products
-       "Hair Services": "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1200&q=80", // Elegant bridal hair
-       "Piercing": "https://images.unsplash.com/photo-1589128504748-510d94511850?w=1200&q=80", // Elegant bridal jewelry
-       "Mehandi": "https://images.unsplash.com/photo-1590548784585-643d2b9f2924?w=1200&q=80", // Intricate Henna (Keep)
-      "Makeup": "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1200&q=80", // Luxury bridal makeup
-      "Hair CARE": "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=1200&q=80", // Silky hair aesthetic
-      "Manicure & Pedicure": "https://images.unsplash.com/photo-1610992015732-2449b0c26670?w=1200&q=80" // Luxury Nails (Keep)
-    };
-
-    // Group by category
-    const grouped = data.data.reduce(function(acc, s) {
-      const cat = s.category || 'General';
-      if (!acc[cat]) acc[cat] = [];
-      acc[cat].push(s);
-      return acc;
-    }, {});
-
-    // Update Service Sections (Cards)
-    if (container) {
-      let html = "";
-      for (const cat in grouped) {
-        const catImg = categoryImages[cat] || "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=800";
-        html += '<div class="service-cat">' +
-                  '<h3>' + escapeHtml(cat) + '</h3>' +
-                  '<img src="' + catImg + '" class="service-cat-banner" alt="' + escapeHtml(cat) + '">' +
-                  '<div class="cards">' +
-                    grouped[cat].map(function (service) {
-                      return (
-                        '<div class="card">' +
-                          "<h3>" + escapeHtml(service.title) + "</h3>" +
-                          "<p>" + escapeHtml(service.description) + "</p>" +
-                          '<p class="price">₹' + Number(service.price).toLocaleString("en-IN") + "</p>" +
-                        "</div>"
-                      );
-                    }).join("") +
-                  '</div>' +
-                '</div>';
-      }
-      container.innerHTML = html;
-    }
-
-    // Update Booking Dropdown (Categories)
-    if (select) {
-      let selectHtml = '<option value="">Select a service…</option>';
-      for (const cat in grouped) {
-        selectHtml += '<optgroup label="' + escapeHtml(cat) + '">';
-        selectHtml += grouped[cat].map(function(s) {
-          return '<option value="' + escapeHtml(s.title) + '">' + 
-                   escapeHtml(s.title) + ' (₹' + s.price + ')' + 
-                 '</option>';
-        }).join("");
-        selectHtml += '</optgroup>';
-      }
-      select.innerHTML = selectHtml;
-    }
-  } catch (err) {
-    /* Backend offline: defaults stay */
-  }
+  let html = '<div class="cards" id="serviceCards">';
+  services.forEach(function(service) {
+    html += '<div class="card"><h3>' + escapeHtml(service.title) + '</h3><p>' + escapeHtml(service.description) + '</p></div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
 })();
 
 /* ---------- 4. Mobile menu toggle ---------- */

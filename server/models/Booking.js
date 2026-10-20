@@ -3,6 +3,7 @@
  */
 const mongoose = require('mongoose');
 
+const BOOKING_SERVICES = ['Bridal', 'Party', 'HD Makeup'];
 const BOOKING_STATUSES = ['pending', 'confirmed'];
 
 const bookingSchema = new mongoose.Schema(
@@ -27,7 +28,10 @@ const bookingSchema = new mongoose.Schema(
     service: {
       type: String,
       required: [true, 'Service is required'],
-      trim: true,
+      enum: {
+        values: BOOKING_SERVICES,
+        message: 'Service must be one of: Bridal, Party, HD Makeup',
+      },
     },
     date: {
       type: Date,
@@ -60,4 +64,5 @@ const bookingSchema = new mongoose.Schema(
 bookingSchema.index({ status: 1, createdAt: -1 });
 
 module.exports = mongoose.model('Booking', bookingSchema);
+module.exports.BOOKING_SERVICES = BOOKING_SERVICES;
 module.exports.BOOKING_STATUSES = BOOKING_STATUSES;
