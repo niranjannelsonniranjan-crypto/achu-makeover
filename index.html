@@ -238,14 +238,14 @@ footer p{font-size:14px;line-height:1.8}
   </div>
 </section>
 
-<!-- ===== Booking form -> POST /api/bookings ===== -->
+<!-- ===== Booking form -> Formspree ===== -->
 <section class="booking" id="booking">
   <h2>Book Your Appointment</h2>
   <p>Fill in your details and we'll confirm your slot within 24 hours</p>
   <div class="booking-wrap">
-    <form class="form-box" id="bookingForm">
+    <form class="form-box" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
       <h3>Bridal Booking Request</h3>
-      <div class="alert" id="bookingAlert"></div>
+      <input type="hidden" name="_subject" value="New Booking Request from Achu Bridal Studio">
 
       <label for="bName">Full Name *</label>
       <input id="bName" name="name" type="text" maxlength="80" required placeholder="e.g. Anitha R">
@@ -283,14 +283,14 @@ footer p{font-size:14px;line-height:1.8}
   </div>
 </section>
 
-<!-- ===== Contact form -> POST /api/contact ===== -->
+<!-- ===== Contact form -> Formspree ===== -->
 <section class="booking contact-sec" id="contact">
   <h2>Still Have Questions?</h2>
   <p>Send us a message and we'll get back to you shortly</p>
   <div class="booking-wrap">
-    <form class="form-box" id="contactForm">
+    <form class="form-box" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
       <h3>Quick Enquiry</h3>
-      <div class="alert" id="contactAlert"></div>
+      <input type="hidden" name="_subject" value="New Enquiry from Achu Bridal Studio">
 
       <label for="cName">Full Name *</label>
       <input id="cName" name="name" type="text" maxlength="80" required placeholder="Your name">
@@ -330,20 +330,7 @@ footer p{font-size:14px;line-height:1.8}
        GET  /api/services   (service cards)
      ========================================================= -->
 <script>
-/* ---- API location ----
-   LOCAL_API : your own backend, used when you open this file directly
-               or serve it while developing on your PC.
-   LIVE_API  : the deployed backend. Replace the placeholder below with your
-               Render URL once deployed (shown at the top of the Render page). */
-const LOCAL_API = "http://localhost:5000/api";
-const LIVE_API = "/api";
-
-const API_BASE =
-  location.protocol === "file:" ||
-  location.hostname === "localhost" ||
-  location.hostname === "127.0.0.1"
-    ? LOCAL_API
-    : LIVE_API;
+/* ---------- Forms now use Formspree - No JavaScript needed ---------- */
 
 /* Escape any text coming from the database before putting it in the page */
 function escapeHtml(value) {
@@ -351,109 +338,6 @@ function escapeHtml(value) {
     return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
   });
 }
-
-/* Show a status message inside a form's alert box */
-function setAlert(id, type, text) {
-  const box = document.getElementById(id);
-  box.className = type ? "alert " + type : "alert";
-  box.textContent = text || "";
-}
-
-/* Read a field by its name attribute.
-   (Avoids the form.name trap, which returns the form's own name) */
-function fieldValue(form, name) {
-  const el = form.querySelector('[name="' + name + '"]');
-  return el ? el.value.trim() : "";
-}
-
-/* Turn a failed API response into a readable message */
-function errorText(res, data) {
-  if (data && Array.isArray(data.errors) && data.errors.length) {
-    return data.errors.map(function (e) { return e.message; }).join(" • ");
-  }
-  if (data && data.message) return data.message;
-  return "Request failed (HTTP " + res.status + ")";
-}
-
-/* ---------- 1. Booking form -> POST /api/bookings ---------- */
-const bookingForm = document.getElementById("bookingForm");
-
-bookingForm.addEventListener("submit", async function (event) {
-  event.preventDefault();
-  const btn = bookingForm.querySelector('button[type="submit"]');
-
-  setAlert("bookingAlert", "", "Sending your request…");
-  btn.disabled = true;
-
-  const payload = {
-    name: fieldValue(bookingForm, "name"),
-    phone: fieldValue(bookingForm, "phone"),
-    email: fieldValue(bookingForm, "email"),
-    service: fieldValue(bookingForm, "service"),
-    date: fieldValue(bookingForm, "date"),
-    time: fieldValue(bookingForm, "time"),
-    message: fieldValue(bookingForm, "message"),
-  };
-
-  try {
-    const res = await fetch(API_BASE + "/bookings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json();
-
-    if (res.ok) {
-      setAlert("bookingAlert", "ok", data.message || "Booking request sent!");
-      bookingForm.reset();
-    } else {
-      setAlert("bookingAlert", "err", errorText(res, data));
-    }
-  } catch (err) {
-    setAlert("bookingAlert", "err",
-      "Cannot reach the server. Make sure the backend is running on port 5000.");
-  } finally {
-    btn.disabled = false;
-  }
-});
-
-/* ---------- 2. Contact form -> POST /api/contact ---------- */
-const contactForm = document.getElementById("contactForm");
-
-contactForm.addEventListener("submit", async function (event) {
-  event.preventDefault();
-  const btn = contactForm.querySelector('button[type="submit"]');
-
-  setAlert("contactAlert", "", "Sending your message…");
-  btn.disabled = true;
-
-  const payload = {
-    name: fieldValue(contactForm, "name"),
-    phone: fieldValue(contactForm, "phone"),
-    message: fieldValue(contactForm, "message"),
-  };
-
-  try {
-    const res = await fetch(API_BASE + "/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json();
-
-    if (res.ok) {
-      setAlert("contactAlert", "ok", data.message || "Message sent!");
-      contactForm.reset();
-    } else {
-      setAlert("contactAlert", "err", errorText(res, data));
-    }
-  } catch (err) {
-    setAlert("contactAlert", "err",
-      "Cannot reach the server. Make sure the backend is running on port 5000.");
-  } finally {
-    btn.disabled = false;
-  }
-});
 
 /* ---------- 3. Service cards & Dropdown - Fixed Services ---------- */
 // Services are hardcoded to avoid backend dependency
