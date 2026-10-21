@@ -14,3 +14,7 @@ Thumbs.db
 .idea/
 dist/
 build/
+
+# Exclude backend (we only deploy frontend static files)
+backend/
+
