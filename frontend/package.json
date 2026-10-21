@@ -1,0 +1,16 @@
+{
+  "name": "achu-bridal-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Achu Bridal Studio website",
+  "scripts": {
+    "start": "echo 'Open index.html in your browser to view the site'",
+    "serve": "npx serve . -p 3000"
+  },
+  "keywords": [
+    "bridal",
+    "makeup",
+    "studio",
+    "website"
+  ],
+  "license": "MIT"
+}

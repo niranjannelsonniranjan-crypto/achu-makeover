@@ -1,16 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/bookings",
-      "destination": "/api/bookings"
-    },
-    {
-      "source": "/api/contact",
-      "destination": "/api/contact"
-    },
-    {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/frontend/index.html"
     }
   ]
 }

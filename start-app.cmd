@@ -25,11 +25,13 @@ echo.
 echo   Keep this window OPEN while using the website.
 echo   Press Ctrl+C to stop the server.
 echo.
+echo   Frontend: Open frontend/index.html in browser
+echo   Admin: Open frontend/admin.html in browser
 echo   Admin login: admin@achubridal.com / Admin@12345
 echo ============================================
 echo.
 
-cd /d "%~dp0server"
+cd /d "%~dp0backend"
 "%NODE_DIR%\node.exe" server.js
 
 echo.
