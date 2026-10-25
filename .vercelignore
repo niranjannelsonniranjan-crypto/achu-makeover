@@ -17,4 +17,6 @@ build/
 
 # Exclude backend (we only deploy frontend static files)
 backend/
+package.json
+package-lock.json
 
