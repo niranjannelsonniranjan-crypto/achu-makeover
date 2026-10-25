@@ -330,8 +330,12 @@ footer p{font-size:14px;line-height:1.8}
        GET  /api/services   (service cards)
      ========================================================= -->
 <script>
-/* ---------- Form handling with local backend ---------- */
+/* ---------- Form handling with local/backend ---------- */
 const LOCAL_API = "http://localhost:5000/api";
+const PROD_API = "https://your-backend.onrender.com/api"; // Update this with your Render URL after deployment
+
+// Use production API when not on localhost
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? LOCAL_API : PROD_API;
 
 /* Show a status message inside a form's alert box */
 function setAlert(id, type, text) {
@@ -377,7 +381,7 @@ if (bookingForm) {
     };
 
     try {
-      const res = await fetch(LOCAL_API + "/bookings", {
+      const res = await fetch(API_BASE + "/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -417,7 +421,7 @@ if (contactForm) {
     };
 
     try {
-      const res = await fetch(LOCAL_API + "/contact", {
+      const res = await fetch(API_BASE + "/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

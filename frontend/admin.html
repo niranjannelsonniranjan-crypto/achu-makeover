@@ -181,16 +181,16 @@ a.link:hover{text-decoration:underline}
 <script>
 /* ---- API location ----
    Same rule as the public site: local when opened on your PC,
-   live once deployed. Update LIVE_API after deploying the backend. */
+   live once deployed. Update PROD_API after deploying the backend. */
 const LOCAL_API = "http://localhost:5000/api";
-const LIVE_API = "/api";
+const PROD_API = "https://your-backend.onrender.com/api"; // Update this with your Render URL after deployment
 
 const API_BASE =
   location.protocol === "file:" ||
   location.hostname === "localhost" ||
   location.hostname === "127.0.0.1"
     ? LOCAL_API
-    : LIVE_API;
+    : PROD_API;
 
 const TOKEN_KEY = "achu_admin_token";
 

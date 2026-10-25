@@ -1,4 +1,10 @@
 {
   "version": 2,
-  "public": "frontend"
+  "public": "frontend",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ]
 }

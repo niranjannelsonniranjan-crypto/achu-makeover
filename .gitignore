@@ -1,5 +1,6 @@
 # Local toolchain - huge, regenerated on demand (Node, MongoDB, Git)
 .tools/
+backend/server/.tools/
 
 # Archives / backups
 *.zip
@@ -8,17 +9,22 @@
 node_modules/
 frontend/node_modules/
 backend/node_modules/
+backend/server/node_modules/
 
 # Environment secrets - never commit
 .env
 .env.local
 .env.*.local
+.env.render
 backend/.env
+backend/server/.env
 
 # Logs
 logs/
 *.log
 npm-debug.log*
+backend/server/.tools/mongodb-data/
+backend/server/.tools/mongodb-logs/
 
 # OS / editor
 .DS_Store

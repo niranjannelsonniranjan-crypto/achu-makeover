@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Achu Bridal Studio - Luxury Bridal Makeup in Trichy",
   "scripts": {
-    "start": "node server/server.js",
-    "dev": "node server/server.js"
+    "start": "cd backend/server && node server.js",
+    "dev": "cd backend/server && node server.js"
   },
   "engines": {
     "node": ">=18.0.0"
