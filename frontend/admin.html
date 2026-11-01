@@ -9,91 +9,91 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:#FFF8F5;color:#4a2c2a;font-size:14px}
+body{font-family:'Poppins',sans-serif;background:#FFF5F5;color:#4A3B3B;font-size:14px}
 
 /* ---------------- Login screen ---------------- */
-.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#fde8e1 0%,#fff1ec 100%)}
-.auth-box{background:#fff;border:1px solid #f2e2d9;border-radius:16px;padding:36px 30px;width:100%;max-width:400px;box-shadow:0 20px 50px rgba(166,124,82,0.15)}
-.auth-box h1{font-family:'Playfair Display';color:#a67c52;font-size:20px;letter-spacing:1px;text-align:center}
-.auth-box .sub{text-align:center;color:#8a6b5d;font-size:12px;margin:6px 0 22px;text-transform:uppercase;letter-spacing:2px}
-.auth-box label{display:block;font-size:12px;color:#7a5c4a;margin:14px 0 6px}
-.auth-box input{width:100%;padding:11px 14px;border:1px solid #ecd9cf;border-radius:9px;font-family:'Poppins',sans-serif;font-size:14px;color:#4a2c2a}
-.auth-box input:focus{outline:none;border-color:#a67c52;box-shadow:0 0 0 3px rgba(166,124,82,0.12)}
-.auth-box button{margin-top:22px;width:100%;border:0;cursor:pointer;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;background:#a67c52;color:#fff;padding:12px;border-radius:30px}
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#FFF5F5 0%,#FFE5E5 100%)}
+.auth-box{background:#fff;border:1px solid #FFE5E5;border-radius:16px;padding:36px 30px;width:100%;max-width:400px;box-shadow:0 20px 50px rgba(255,182,163,0.15)}
+.auth-box h1{font-family:'Playfair Display';color:#D48A7E;font-size:20px;letter-spacing:1px;text-align:center}
+.auth-box .sub{text-align:center;color:#6B5B5B;font-size:12px;margin:6px 0 22px;text-transform:uppercase;letter-spacing:2px}
+.auth-box label{display:block;font-size:12px;color:#6B5B5B;margin:14px 0 6px}
+.auth-box input{width:100%;padding:11px 14px;border:1px solid #FFE5E5;border-radius:9px;font-family:'Poppins',sans-serif;font-size:14px;color:#4A3B3B}
+.auth-box input:focus{outline:none;border-color:#FFB6A3;box-shadow:0 0 0 3px rgba(255,182,163,0.12)}
+.auth-box button{margin-top:22px;width:100%;border:0;cursor:pointer;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;background:#D48A7E;color:#fff;padding:12px;border-radius:30px}
 .auth-box button:disabled{opacity:.6;cursor:not-allowed}
 
 /* ---------------- Alerts ---------------- */
 .alert{display:none;padding:11px 14px;border-radius:9px;font-size:13px;margin-bottom:6px;line-height:1.5;white-space:pre-wrap}
-.alert.ok{display:block;background:#e8f6ec;color:#1c6b34;border:1px solid #bfe3c9}
-.alert.err{display:block;background:#fdecec;color:#a32b2b;border:1px solid #f2c9c9}
+.alert.ok{display:block;background:#e8f6ec;color:#4A3B3B;border:1px solid #bfe3c9}
+.alert.err{display:block;background:#fdecec;color:#4A3B3B;border:1px solid #f2c9c9}
 
 /* ---------------- Dashboard shell ---------------- */
-header{background:#FFFEFB;padding:14px 4%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,0.05);position:sticky;top:0;z-index:10}
-.logo{font-family:'Playfair Display';color:#a67c52;font-size:18px;letter-spacing:2px}
-.logo span{display:block;font-family:'Poppins';font-size:10px;letter-spacing:2px;color:#b9a08c;text-transform:uppercase}
-.who{display:flex;align-items:center;gap:12px;font-size:12px;color:#8a6b5d}
-.btn{border:1px solid #ecd9cf;background:#fff;color:#a67c52;padding:8px 16px;border-radius:20px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600}
-.btn:hover{background:#fdf5f0}
-.btn-solid{background:#a67c52;color:#fff;border-color:#a67c52}
-.btn-solid:hover{background:#96703f;color:#fff}
+header{background:#D48A7E;padding:14px 4%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,0.05);position:sticky;top:0;z-index:10}
+.logo{font-family:'Playfair Display';color:#FFFFFF;font-size:18px;letter-spacing:2px}
+.logo span{display:block;font-family:'Poppins';font-size:10px;letter-spacing:2px;color:#FFE5E5;text-transform:uppercase}
+.who{display:flex;align-items:center;gap:12px;font-size:12px;color:#FFFFFF}
+.btn{border:1px solid #FFE5E5;background:#D48A7E;color:#FFFFFF;padding:8px 16px;border-radius:20px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600}
+.btn:hover{background:#C57A6E}
+.btn-solid{background:#FFFFFF;color:#D48A7E;border-color:#FFFFFF}
+.btn-solid:hover{background:#FFE5E5;color:#D48A7E}
 
 main{max-width:1180px;margin:0 auto;padding:26px 4% 60px}
 
 /* ---------------- Stats ---------------- */
 .stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px}
-.stat{background:#fff;border:1px solid #f2e2d9;border-radius:14px;padding:16px 22px;min-width:140px;flex:1}
-.stat .n{font-family:'Playfair Display';font-size:28px;color:#a67c52;line-height:1.1}
-.stat .l{font-size:11px;color:#8a6b5d;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.stat{background:#fff;border:1px solid #FFE5E5;border-radius:14px;padding:16px 22px;min-width:140px;flex:1}
+.stat .n{font-family:'Playfair Display';font-size:28px;color:#D48A7E;line-height:1.1}
+.stat .l{font-size:11px;color:#6B5B5B;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
 
 /* ---------------- Tabs ---------------- */
-.tabs{display:flex;gap:8px;border-bottom:1px solid #f2e2d9;margin-bottom:20px}
-.tab{background:none;border:0;border-bottom:2px solid transparent;padding:10px 16px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:14px;color:#8a6b5d;font-weight:600}
-.tab.active{color:#a67c52;border-bottom-color:#a67c52}
-.tab .count{background:#f2e2d9;color:#8a6b5d;border-radius:10px;padding:1px 8px;font-size:11px;margin-left:6px}
-.tab.active .count{background:#a67c52;color:#fff}
+.tabs{display:flex;gap:8px;border-bottom:1px solid #FFE5E5;margin-bottom:20px}
+.tab{background:none;border:0;border-bottom:2px solid transparent;padding:10px 16px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:14px;color:#6B5B5B;font-weight:600}
+.tab.active{color:#D48A7E;border-bottom-color:#D48A7E}
+.tab .count{background:#FFE5E5;color:#6B5B5B;border-radius:10px;padding:1px 8px;font-size:11px;margin-left:6px}
+.tab.active .count{background:#D48A7E;color:#fff}
 
 /* ---------------- Cards / table ---------------- */
-.panel{background:#fff;border:1px solid #f2e2d9;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(166,124,82,0.06)}
-.panel-head{padding:14px 18px;border-bottom:1px solid #f6ece6;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.panel-head h2{font-family:'Playfair Display';font-size:17px;color:#a67c52;font-weight:600}
+.panel{background:#fff;border:1px solid #FFE5E5;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(255,182,163,0.06)}
+.panel-head{padding:14px 18px;border-bottom:1px solid #FFE5E5;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.panel-head h2{font-family:'Playfair Display';font-size:17px;color:#D48A7E;font-weight:600}
 .filters{display:flex;gap:6px;flex-wrap:wrap}
-.chip{border:1px solid #ecd9cf;background:#fff;border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:'Poppins',sans-serif;color:#8a6b5d}
-.chip.active{background:#a67c52;color:#fff;border-color:#a67c52}
+.chip{border:1px solid #FFE5E5;background:#fff;border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:'Poppins',sans-serif;color:#6B5B5B}
+.chip.active{background:#D48A7E;color:#fff;border-color:#D48A7E}
 
 /* the bookings table is wide - always keep it scrollable
    instead of letting .panel{overflow:hidden} clip it */
 #bookingsBody{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse}
-th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#b9a08c;padding:12px 14px;background:#fffdfc;border-bottom:1px solid #f6ece6;font-weight:600}
-td{padding:14px;border-bottom:1px solid #f8f1ec;vertical-align:top;font-size:13px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8B7B7B;padding:12px 14px;background:#FFF5F5;border-bottom:1px solid #FFE5E5;font-weight:600}
+td{padding:14px;border-bottom:1px solid #FFE5E5;vertical-align:top;font-size:13px}
 tr:last-child td{border-bottom:0}
-tbody tr:hover{background:#fffdfc}
-.name{font-weight:600;color:#4a2c2a}
-.muted{color:#a89184;font-size:12px}
-.notes{max-width:230px;white-space:pre-wrap;color:#7a5c4a}
-a.link{color:#a67c52;text-decoration:none}
+tbody tr:hover{background:#FFF5F5}
+.name{font-weight:600;color:#4A3B3B}
+.muted{color:#8B7B7B;font-size:12px}
+.notes{max-width:230px;white-space:pre-wrap;color:#6B5B5B}
+a.link{color:#D48A7E;text-decoration:none}
 a.link:hover{text-decoration:underline}
 
 .badge{display:inline-block;padding:3px 11px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.badge.pending{background:#fdf1e3;color:#a86a1f}
-.badge.confirmed{background:#e8f6ec;color:#1c6b34}
+.badge.pending{background:#FFF5F5;color:#D48A7E}
+.badge.confirmed{background:#e8f6ec;color:#4A3B3B}
 
 .actions{display:flex;gap:6px;flex-wrap:wrap}
-.mini{border:1px solid #ecd9cf;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:'Poppins',sans-serif;color:#8a6b5d;font-weight:600;white-space:nowrap}
-.mini:hover{background:#fdf5f0}
-.mini.danger{color:#a32b2b;border-color:#f2c9c9}
-.mini.danger:hover{background:#fdecec}
-.mini.go{color:#1c6b34;border-color:#bfe3c9}
-.mini.go:hover{background:#e8f6ec}
+.mini{border:1px solid #FFE5E5;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:'Poppins',sans-serif;color:#6B5B5B;font-weight:600;white-space:nowrap}
+.mini:hover{background:#FFF5F5}
+.mini.danger{color:#4A3B3B;border-color:#FFB6A3}
+.mini.danger:hover{background:#FFE5E5}
+.mini.go{color:#4A3B3B;border-color:#D48A7E}
+.mini.go:hover{background:#E8F5E9}
 .mini:disabled{opacity:.5;cursor:not-allowed}
 
-.empty{padding:46px 20px;text-align:center;color:#b9a08c}
+.empty{padding:46px 20px;text-align:center;color:#8B7B7B}
 .msg-list{padding:6px 0}
-.msg{padding:16px 18px;border-bottom:1px solid #f8f1ec}
+.msg{padding:16px 18px;border-bottom:1px solid #FFE5E5}
 .msg:last-child{border-bottom:0}
 .msg-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
-.msg-body{color:#7a5c4a;white-space:pre-wrap;background:#fffdfc;border:1px solid #f6ece6;border-radius:9px;padding:11px 13px;margin-top:8px}
-.spin{padding:40px;text-align:center;color:#b9a08c}
+.msg-body{color:#6B5B5B;white-space:pre-wrap;background:#FFF5F5;border:1px solid #FFE5E5;border-radius:9px;padding:11px 13px;margin-top:8px}
+.spin{padding:40px;text-align:center;color:#8B7B7B}
 /* ---- Tablet / phone ---- */
 @media(max-width:900px){
   header{padding:12px 4%}
@@ -122,6 +122,26 @@ a.link:hover{text-decoration:underline}
     <label for="password">Password</label>
     <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="Your password">
     <button type="submit" id="loginBtn">Sign In</button>
+    <div style="text-align:center;margin-top:16px">
+      <a href="#" id="showReset" style="color:#D48A7E;text-decoration:none;font-size:12px">Forgot Password?</a>
+    </div>
+  </form>
+</div>
+
+<!-- ================= RESET PASSWORD ================= -->
+<div class="auth-wrap" id="resetView" style="display:none">
+  <form class="auth-box" id="resetForm">
+    <h1>ACHU BRIDAL STUDIO</h1>
+    <p class="sub">Reset Password</p>
+    <div class="alert" id="resetAlert"></div>
+    <label for="resetEmail">Email</label>
+    <input id="resetEmail" name="email" type="email" required autocomplete="username" placeholder="admin@achubridal.com">
+    <label for="newPassword">New Password</label>
+    <input id="newPassword" name="newPassword" type="password" required minlength="6" placeholder="New password (min 6 characters)">
+    <button type="submit" id="resetBtn">Reset Password</button>
+    <div style="text-align:center;margin-top:16px">
+      <a href="#" id="showLogin" style="color:#D48A7E;text-decoration:none;font-size:12px">Back to Login</a>
+    </div>
   </form>
 </div>
 
@@ -272,9 +292,16 @@ async function api(path, options) {
 
 function showLogin(message) {
   document.getElementById("dashView").style.display = "none";
+  document.getElementById("resetView").style.display = "none";
   document.getElementById("loginView").style.display = "flex";
   document.getElementById("password").value = "";
   setAlert("loginAlert", "err", message || "");
+}
+
+function showReset() {
+  document.getElementById("loginView").style.display = "none";
+  document.getElementById("resetView").style.display = "flex";
+  setAlert("resetAlert", "", "");
 }
 
 function showDash() {
@@ -457,6 +484,51 @@ document.getElementById("logoutBtn").addEventListener("click", function () { log
 document.getElementById("refreshBtn").addEventListener("click", async function () {
   setAlert("dashAlert", "ok", "");
   await loadAll();
+});
+
+document.getElementById("showReset").addEventListener("click", function (e) {
+  e.preventDefault();
+  showReset();
+});
+
+document.getElementById("showLogin").addEventListener("click", function (e) {
+  e.preventDefault();
+  showLogin("");
+});
+
+document.getElementById("resetForm").addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const btn = document.getElementById("resetBtn");
+  const email = document.getElementById("resetEmail").value.trim();
+  const newPassword = document.getElementById("newPassword").value;
+
+  setAlert("resetAlert", "err", "");
+  btn.disabled = true;
+  btn.textContent = "Resetting…";
+
+  try {
+    const res = await fetch(API_BASE + "/admin/reset-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, newPassword: newPassword }),
+    });
+    const data = await res.json().catch(function () { return null; });
+
+    if (!res.ok) {
+      setAlert("resetAlert", "err", (data && data.message) || "Password reset failed.");
+      return;
+    }
+
+    setAlert("resetAlert", "ok", data.message || "Password reset successfully!");
+    setTimeout(function () {
+      showLogin("Please login with your new password.");
+    }, 2000);
+  } catch (err) {
+    setAlert("resetAlert", "err", "Cannot reach the server. Make sure the backend is running on port 5000.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Reset Password";
+  }
 });
 
 document.querySelectorAll(".tab").forEach(function (tab) {

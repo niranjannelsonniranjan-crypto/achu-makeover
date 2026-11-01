@@ -25,17 +25,18 @@ const createBooking = asyncHandler(async (req, res) => {
 
   // Notify the studio. Fire-and-forget: a mail failure must not fail the booking.
   sendEmail({
-    to: process.env.EMAIL_USER,
+    to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
     subject: `New ${service} booking - ${name}`,
     html: `
-      <h2>New Booking Request</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Phone:</strong> ${phone}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Service:</strong> ${service}</p>
-      <p><strong>Date:</strong> ${new Date(date).toDateString()}</p>
-      <p><strong>Time:</strong> ${time}</p>
-      <p><strong>Message:</strong> ${message || '-'}</p>
+      <h2 style="color: #D48A7E;">New Booking Request</h2>
+      <p style="color: #4A3B3B;"><strong>Name:</strong> ${name}</p>
+      <p style="color: #4A3B3B;"><strong>Phone:</strong> ${phone}</p>
+      <p style="color: #4A3B3B;"><strong>Email:</strong> ${email}</p>
+      <p style="color: #4A3B3B;"><strong>Service:</strong> ${service}</p>
+      <p style="color: #4A3B3B;"><strong>Date:</strong> ${new Date(date).toDateString()}</p>
+      <p style="color: #4A3B3B;"><strong>Time:</strong> ${time}</p>
+      <p style="color: #4A3B3B;"><strong>Message:</strong> ${message || '-'}</p>
+      <p style="color: #4A3B3B; margin-top: 20px;">Thank you,<br>Achu Bridal Studio</p>
     `,
   });
 

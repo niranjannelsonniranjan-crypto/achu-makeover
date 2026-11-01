@@ -4,6 +4,7 @@
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const asyncHandler = require('../middleware/asyncHandler');
+const sendEmail = require('../utils/sendEmail');
 
 // Sign a JWT for an admin document
 const generateToken = (adminId) =>
@@ -79,4 +80,58 @@ const getMe = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: req.admin });
 });
 
-module.exports = { registerAdmin, loginAdmin, getMe };
+/**
+ * @desc    Reset admin password
+ * @route   POST /api/admin/reset-password
+ * @access  Public
+ */
+const resetPassword = asyncHandler(async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  if (!email || !newPassword) {
+    return res.status(400).json({
+      success: false,
+      message: 'Email and new password are required',
+    });
+  }
+
+  if (newPassword.length < 6) {
+    return res.status(400).json({
+      success: false,
+      message: 'Password must be at least 6 characters',
+    });
+  }
+
+  const admin = await Admin.findOne({ email });
+
+  if (!admin) {
+    return res.status(404).json({
+      success: false,
+      message: 'Admin not found with this email',
+    });
+  }
+
+  admin.password = newPassword;
+  await admin.save();
+
+  // Send confirmation email
+  const subject = 'Password Reset Confirmation - Achu Bridal Studio';
+  const text = `Your password has been successfully reset for Achu Bridal Studio Admin Panel. If you did not request this change, please contact support immediately.`;
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <h2 style="color: #D48A7E;">Password Reset Confirmation</h2>
+      <p style="color: #4A3B3B;">Your password has been successfully reset for Achu Bridal Studio Admin Panel.</p>
+      <p style="color: #6B5B5B;">If you did not request this change, please contact support immediately.</p>
+      <p style="color: #4A3B3B; margin-top: 20px;">Thank you,<br>Achu Bridal Studio Team</p>
+    </div>
+  `;
+
+  await sendEmail({ to: email, subject, text, html });
+
+  return res.status(200).json({
+    success: true,
+    message: 'Password reset successfully. Please login with your new password.',
+  });
+});
+
+module.exports = { registerAdmin, loginAdmin, getMe, resetPassword };

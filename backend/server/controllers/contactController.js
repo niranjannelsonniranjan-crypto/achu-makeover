@@ -17,14 +17,15 @@ const createContact = asyncHandler(async (req, res) => {
 
   // Notify the studio (non-blocking)
   sendEmail({
-    to: process.env.EMAIL_USER,
+    to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
     subject: `New enquiry from ${name}`,
     html: `
-      <h2>New Contact Enquiry</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Phone:</strong> ${phone}</p>
-      <p><strong>Message:</strong></p>
-      <p>${message}</p>
+      <h2 style="color: #D48A7E;">New Contact Enquiry</h2>
+      <p style="color: #4A3B3B;"><strong>Name:</strong> ${name}</p>
+      <p style="color: #4A3B3B;"><strong>Phone:</strong> ${phone}</p>
+      <p style="color: #4A3B3B;"><strong>Message:</strong></p>
+      <p style="color: #6B5B5B;">${message}</p>
+      <p style="color: #4A3B3B; margin-top: 20px;">Thank you,<br>Achu Bridal Studio</p>
     `,
   });
 
